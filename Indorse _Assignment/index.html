@@ -1,0 +1,97 @@
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+	<script src="/js/loadash.js"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+	<script src="/js/vue-2.js"></script>
+	<script src="/js/vue-material.js"></script>
+	<script src="/js/vue.js"></script>
+	<link rel="stylesheet" href="/css/style.css">
+   	<link rel="stylesheet" href="/css/bootstrap.css">
+   	<link rel="stylesheet" href="/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="/css/vue-material.css">
+	<script src="/js/food-component.js"></script>
+</head>
+
+<body background="./images/fastfood.png">
+  	<div id="app">
+    	<div class="col-md-12">
+    		<food-component></food-component>
+		</div>
+  	</div>
+	
+	<template id="food_component">
+		<div class="col-md-12">
+			<div class="col-md-4">
+				<md-input-container>
+					<md-input type="text" list="names" autocomplete="off" v-model="selectedItem" @input="onChange(selectedItem)" placeholder="Start typing....."/>
+				</md-input-container>
+				<datalist id = "names">
+					<option v-for="item in itemlist" :value="item.name">
+				</datalist>
+			</div>
+			<br><br><br><br>
+			<div v-if="itemdetail.name">
+				<md-card md-with-hover class="round">
+					<div class="row">
+						<div class="col-md-4">
+							<center><h3>{{itemdetail.name}}</h3></center>
+							<br><br>
+							<div class="col-md-12"><img :src="itemdetail.image_url"/></div>
+		 				</div>
+		 				<div class="col-md-3">
+		 					<h4>Ingredients</h4>
+		 					<md-list>
+  								<md-list-item style="min-height: 35px;
+    								height: 1px;" v-for="ingredient in itemdetail.ingredients">
+      								<p style="font-size:14px;">{{ingredient}}</p>
+  								</md-list-item>
+							</md-list>
+		 				</div>
+		 				<div class="col-md-4">
+		 					<md-table>
+  								<md-table-header>
+    								<md-table-row>
+      									<md-table-head>Nutrients</md-table-head>
+      									<md-table-head>Quantity</md-table-head>      
+    								</md-table-row>
+  								</md-table-header>
+								<md-table-body>
+  									<md-table-row v-for="(quantity, nutrient) in itemdetail.nutrients">
+      									<md-table-cell style="font-size:14px;">{{nutrient}}</md-table-cell>
+      									<md-table-cell style="font-size:14px;">{{quantity}}</md-table-cell> 
+    								</md-table-row>
+    							</md-table-body>
+							</md-table>
+						</div>
+		 			</div><br>
+		 			<div class="row">
+		 				<div class="col-md-4">
+		 				<center><h4>Calories - {{itemdetail.calories}} kcal</h4></center>	
+		 				</div>
+		 				<div class="col-md-4">
+		 				</div>
+		 				<div class="col-md-4">
+		 					<center><h1>{{itemrank}}/{{itemlist.length}}</h1>
+		 					Rank Based on High Calories</center><br>
+		 				</div>
+		 			</div>
+		 		</md-card>		
+		 	</div>
+		 	<div v-else><div class=row"><div class="col-md-12" style="height:175px;"></div><center><i><h1 style="color:orange;">Fast Food Maniac</h1></i></center></div>
+		</div>
+	</template>
+
+<script>
+	app = new Vue({
+    	el: '#app',
+    	data: {
+			
+    	}
+	});
+</script>
+
+<script>  templates_json = 'templates_json';</script>
+
+</body>
+</html>
